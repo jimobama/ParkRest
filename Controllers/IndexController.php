@@ -33,10 +33,9 @@ class IndexController {
    
       function Login($username,$password)
       {
-        
-          
+                
           $response = array();
-                    
+          $response["success"]="0";         
           $userdb= new User();
           $userdb->email=$username;
           $userdb->setPassword($password);
@@ -48,18 +47,18 @@ class IndexController {
               {
                  $userdb= new User();
                  $userdb=  $model->GetUser(); 
-                 $response["success"]="1";
+                
                  $response["content"]="user exists";
                 
               }else
               {
-               $response["success"]="0";   
+               $response["success"]="-1";   
                $response["content"]="username or password does not exists";
                             
               
               }
           }  else {
-              $response["success"]="0";
+              $response["success"]="-1";
               $response["content"]=$userdb->getError();
              
           }
@@ -70,7 +69,9 @@ class IndexController {
       
       function Update($id,$firstname,$lastname,$gender,$email,$phone)
       {
-         
+         $response["success"]="0";
+        $response["content"]="";
+        $response["message"]="";
           $user = new User();
           $user->firstname= $firstname;
           $user->lastname=$lastname;
@@ -88,19 +89,19 @@ class IndexController {
                  $status= $model->Update($id, $user);
                  if($status)
                  {
-                    $response["success"] =1;
+                   
                     $response["message"]="Account information successfully updated";
                  }  else {
-                    $response["success"] =0;
+                    $response["success"] =-1;
                     $response["message"]="Re-send this request again ,if presist contact administrator";
                  }
                   
               }  else {
-                    $response["success"] =0;
+                    $response["success"] =-1;
                     $response["message"]="Error request not account with the give  $user->email";
               }
           }  else {
-               $response["success"] =0;
+               $response["success"] =-1;
               $response["message"]=$user->getError();
           }
           
@@ -111,6 +112,10 @@ class IndexController {
       
       function Search($id,$firstname,$lastname,$gender,$email,$phone)
       {
+          $response["success"]="0";
+          $response["content"]="";
+          $response["message"]="";
+          
           $user = new User();
           $user->firstname= $firstname;
           $user->lastname=$lastname;
@@ -122,8 +127,7 @@ class IndexController {
           
          
          $model = new UserModel($user,$this->db);
-         $content = $model->Search( $user);
-         $response["success"]=1;
+         $content = $model->Search( $user);       
          $response["content"]= $content;
                 
            
@@ -134,9 +138,13 @@ class IndexController {
       }
       
       
-      function CreateUser($firstname,$lastname,$gender,$email,$phone)
+      function Create($firstname,$lastname,$gender,$email,$phone)
       {
-          $response = array();          
+          
+          $response = array();  
+           $response["success"]="0";
+          $response["content"]="";
+          $response["message"]="";
           $user = new User();
           $user->firstname= $firstname;
           $user->lastname=$lastname;
@@ -165,13 +173,17 @@ class IndexController {
                 }
             }
             else
-            {
-             
+            {            
                 $user= $model->GetUser();
                 $response["success"]=0;
                 $response["content"]=$user;             
                 $response["message"]="user already exist in database";
             }
+          }else{
+                
+                $response["success"]=0;
+                $response["content"]=$user->getError();             
+              
           }
           
           return $response;

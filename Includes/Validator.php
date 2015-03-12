@@ -258,7 +258,12 @@ class Validator {
         $interval = intval($interval->format("%R%a"));
         return $interval;
     }
-
+   static function Now()
+   {
+     $now =strtotime("now"); 
+    
+     return $now;
+   }
 }
 
 //end class

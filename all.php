@@ -1,5 +1,7 @@
 <?php
+include_once("Includes/Session.php");
 include_once "Configuration/constants.php";
+include_once("Includes/GeoServices.php");
 include_once "appdata/Database.php";
 include_once "Includes/Object.php";
 include_once  "Includes/IModel.php";

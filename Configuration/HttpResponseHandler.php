@@ -25,12 +25,8 @@ class HttpResponseHandler {
     {
         $viewer = new JsonViewer();     
         $jsonObject= $this->_process();
-        if($jsonObject ==null){
-             $viewer->SetContent();
-        }else
-        {
-             $viewer->SetContent($jsonObject);
-        }
+        $viewer->SetContent($jsonObject);
+       
         return $viewer;
     }
     
@@ -40,10 +36,9 @@ private function _process()
         if($this->request->IsValid())
         {
            $this->controller =$this->request->Controller();
-           $this->action = $this->request->Action();
-           return   $this->_run();
+           $this->action = $this->request->Action();          
         }
-        return array();
+        return   $this->_run();
     }
     
    
@@ -56,6 +51,7 @@ private  function _run()
             {
               return $this->_exec($clsObject);
             }
+           
         }
         
         return array();

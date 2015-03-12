@@ -23,20 +23,25 @@ class Viewer {
     
     function SetContent( $jsonObject=null)
     {
-        if($jsonObject!=null && is_object($jsonObject) || is_array($jsonObject))
+        if($jsonObject!=null && (is_object($jsonObject) || is_array($jsonObject)))
         {
-           $this->content= json_encode($jsonObject);  
+            
+           $this->content= json_encode($jsonObject,128);  
            return ;
         }
-        $this->buildEmpty();       
+        $this->buildEmpty($jsonObject);       
        
     }
     
     
     
-private function buildEmpty()
+private function buildEmpty($jsonObject)
  {
-     $this->content=  json_encode(array("status:200,value:"));
+     $response=array();
+     $response["content"]= $jsonObject;
+     if( $response["content"] !=null){
+         $this->content =  json_encode($response,128 );
+     }
  }
     
 }
