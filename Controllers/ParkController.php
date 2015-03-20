@@ -56,6 +56,7 @@ class ParkController  extends GeoServices {
    }
    function Create($userid,$lat,$long,$img)
    {
+       //$userid is the application Id code
         $response=array();
         $response["success"]=0;    
         $response["content"]= "";

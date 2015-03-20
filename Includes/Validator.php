@@ -92,7 +92,18 @@ class Validator {
         }
         return false;
     }
-
+  static final function IsEmpty($field)
+       {
+                    
+                if(trim($field)=="" || $field ==null)
+                {
+                    return true;
+                }
+                return false;
+           
+       }
+       
+       
     static final function isStringDate($txtExpiredate) {
         $okay = false;
         $dateArray = explode("/", $txtExpiredate);

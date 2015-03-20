@@ -18,6 +18,9 @@ class Viewer {
     function Display()
     {
       header("Content-Type:application/json");
+      header("Access-Control-Allow-Origin: *");//to allow client to use httprequest
+      header("Access-Control-Allow-Credentials: true");
+      
       echo $this->content;  
     }
     

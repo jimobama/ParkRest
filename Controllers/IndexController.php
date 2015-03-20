@@ -138,11 +138,11 @@ class IndexController {
       }
       
       
-      function Create($firstname,$lastname,$gender,$email,$phone)
+      function Create($email,$password,$firstname,$lastname,$gender,$phone)
       {
           
           $response = array();  
-           $response["success"]="0";
+          $response["success"]="0";
           $response["content"]="";
           $response["message"]="";
           $user = new User();
@@ -151,6 +151,7 @@ class IndexController {
           $user->gender = $gender;
           $user->email=$email;
           $user->phone=$phone;
+          $user->setPassword($password);
           if($user->validated())
           {
           
